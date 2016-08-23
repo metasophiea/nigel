@@ -4,7 +4,7 @@
 //      /  / |  | /  /  /  / /  /  ___  /  _____/  /  /
 //     /  /  |  |/  /  /  / /  /__/  / /  /____   /  /___
 //    /__/   |_____/  /__/ /________/ /_______/  /______/
-// 								for atmega328p
+// 					for atmega328p
 // ---- notes ---- //
 /*
  - main Nigel programming memory starts at 0x0100 and ends at 0x08FF
@@ -12,13 +12,13 @@
 */
 ; --------------------------------------------------------------- ;
 // ----- Interrupt List ----- //
-	jmp start 			; First Command
+	jmp start 		; First Command
 	jmp EXT_INT0 		; IRQ0 Handler
 	jmp EXT_INT1 		; IRQ1 Handler
 	jmp PCINT0Change	; PCINT0 Handler
 	jmp PCINT1Change	; PCINT1 Handler
 	jmp PCINT2Change	; PCINT2 Handler
-	jmp WDT 			; Watchdog Timer Handler
+	jmp WDT 		; Watchdog Timer Handler
 	jmp TIM2_COMPA		; Timer2 Compare A Handler
 	jmp TIM2_COMPB 		; Timer2 Compare B Handler
 	jmp TIM2_OVF 		; Timer2 Overflow Handler
@@ -33,34 +33,34 @@
 	jmp USART_RXC 		; USART, RX Complete Handler
 	jmp USART_UDRE		; USART, UDR Empty Handler
 	jmp USART_TXC		; USART, TX Complete Handler
-	jmp ADCCC 			; ADC Conversion Complete Handler
-	jmp EE_RDY 			; EEPROM Ready Handler
+	jmp ADCCC 		; ADC Conversion Complete Handler
+	jmp EE_RDY 		; EEPROM Ready Handler
 	jmp ANA_COMP 		; Analog Comparator Handler
-	jmp TWI 			; 2-wire Serial Interface Handler
+	jmp TWI 		; 2-wire Serial Interface Handler
 	jmp SPM_RDY 		; Store Program Memory Ready Handler
 ; --------------------------------------------------------------- ;
 // ----- Command list ----- //
 // - system commands -
-	jmp STOP			;|Com_High8|Com_Low8| ;|00|34|
-	jmp RESET_			;|Com_High8|Com_Low8| ;|00|36|
+	jmp STOP		;|Com_High8|Com_Low8| ;|00|34|
+	jmp RESET_		;|Com_High8|Com_Low8| ;|00|36|
 	jmp Soft_Restart	;|Com_High8|Com_Low8| ;|00|38|
-	jmp goto_			;|Com_High8|Com_Low8|N_High8|N_Low8| ;|00|3A|
-	jmp Sleep_			;|Com_High8|Com_Low8| ;|00|3C|
-	jmp Nop_			;|Com_High8|Com_Low8| ;|00|3E|
-	jmp Wait			;|Com_High8|Com_Low8|Com|N_High8|N_Low8| ;|00|40|
-						;Time Types:
-						/*
-						00 Milliseconds (desired time + 0.00425 milliseconds) (gains 3.1 milliseconds every 10 seconds)
-						01 Seconds (can't recommend it right now for accuracy reasons)
-						*/
+	jmp goto_		;|Com_High8|Com_Low8|N_High8|N_Low8| ;|00|3A|
+	jmp Sleep_		;|Com_High8|Com_Low8| ;|00|3C|
+	jmp Nop_		;|Com_High8|Com_Low8| ;|00|3E|
+	jmp Wait		;|Com_High8|Com_Low8|Com|N_High8|N_Low8| ;|00|40|
+				;Time Types:
+				/*
+				00 Milliseconds (desired time + 0.00425 milliseconds) (gains 3.1 milliseconds every 10 seconds)
+				01 Seconds (can't recommend it right now for accuracy reasons)
+				*/
 
 // - Chip Pin Control -
 	jmp PortDirection	;|Com_High8|Com_Low8|Port|N ;|00|42|
-	jmp SetPort			;|Com_High8|Com_Low8|Port|N ;|00|44|
+	jmp SetPort		;|Com_High8|Com_Low8|Port|N ;|00|44|
 	jmp ReadPort		;|Com_High8|Com_Low8|Port|F_High8|F_Low8 ;|00|46|
 
 // - bitwise operations - 
-	jmp SetFbit			;|Com_High8|Com_Low8|F_High8|F_Low8|N ;|00|48|
+	jmp SetFbit		;|Com_High8|Com_Low8|F_High8|F_Low8|N ;|00|48|
 	jmp ClearFbit		;|Com_High8|Com_Low8|F_High8|F_Low8|N ;|00|4A|
 	jmp BitShiftFLeft	;|Com_High8|Com_Low8|F_High8|F_Low8 ;|00|4C|
 	jmp BitShiftFRight	;|Com_High8|Com_Low8|F_High8|F_Low8 ;|00|4E|
@@ -68,8 +68,8 @@
 	jmp FlipBits		;|Com_High8|Com_Low8|F_High8|F_Low8 ;|00|52|
 
 // - move number -
-	jmp putNinF			;|Com_High8|Com_Low8|N|F_High8|F_Low8 ;|00|54|
-	jmp putFinF			;|Com_High8|Com_Low8|F_High8|F_Low8|F_High8|F_Low8 ;|00|56|
+	jmp putNinF		;|Com_High8|Com_Low8|N|F_High8|F_Low8 ;|00|54|
+	jmp putFinF		;|Com_High8|Com_Low8|F_High8|F_Low8|F_High8|F_Low8 ;|00|56|
 
 // - And/Or commands -
 	jmp AndNwithF		;|Com_High8|Com_Low8|N|F_High8|F_Low8 ;|00|58|
@@ -88,15 +88,15 @@
 	jmp NEOrFwithF		;|Com_High8|Com_Low8|F_High8|F_Low8|F_High8|F_Low8 ;|00|6E|
 
 // - number control (unfinished)
-; basic numbers are a big doddgy,, finding them has a flaw where other commands 
+; basic numbers are a bit doddgy,, finding them has a flaw where other commands 
 ; could potentially be mistaken as a BasicNumber confusing the Retriever.
 ; Bug count: 1
-	jmp BasicNumber	;|Com_High8|Com_Low8|IDNumber|Type|X| ;|00|70|
-				; 00 - Int ; 01 - Float ; 02 - Fractional ; 03 - Power ; 04 - Root 
-	jmp BasicNumber2	;|Com_High8|Com_Low8|IDNumber_High8|IDNumber_Low8|Type|X| ;|00|72|
-				; 00 - Int ; 01 - Float ; 02 - Fractional ; 03 - Power ; 04 - Root 
-	jmp BasicNumberRetriever ;|Com_High8|Com_Low8|IDNumber|F_High8|F_Low8| ;|00|74|
-	jmp BasicNumber2Retriever ;|Com_High8|Com_Low8|IDNumber_High8|IDNumber_Low8|F_High8|F_Low8| ;|00|76|
+	jmp BasicNumber			;|Com_High8|Com_Low8|IDNumber|Type|X| ;|00|70|
+					; 00 - Int ; 01 - Float ; 02 - Fractional ; 03 - Power ; 04 - Root 
+	jmp BasicNumber2		;|Com_High8|Com_Low8|IDNumber_High8|IDNumber_Low8|Type|X| ;|00|72|
+					; 00 - Int ; 01 - Float ; 02 - Fractional ; 03 - Power ; 04 - Root 
+	jmp BasicNumberRetriever 	;|Com_High8|Com_Low8|IDNumber|F_High8|F_Low8| ;|00|74|
+	jmp BasicNumber2Retriever 	;|Com_High8|Com_Low8|IDNumber_High8|IDNumber_Low8|F_High8|F_Low8| ;|00|76|
 
 
 	jmp DynamicNumber	;|Com_High8|Com_Low8|Type|IDNumber|Length|X| ;|00|78|
@@ -124,8 +124,8 @@
 	jmp decrimentFby1	;|Com_High8|Com_Low8|F_High8|F_Low8 ;|00||
 	jmp MakeFnegitive	;|Com_High8|Com_Low8|F_High8|F_Low8 ;|00||
 
-	jmp addNtoF			;|Com_High8|Com_Low8|N|F_High8|F_Low8 ;|00||
-	jmp addFtoF			;|Com_High8|Com_Low8|F_High8|F_Low8|F_High8|F_Low8 ;|00||
+	jmp addNtoF		;|Com_High8|Com_Low8|N|F_High8|F_Low8 ;|00||
+	jmp addFtoF		;|Com_High8|Com_Low8|F_High8|F_Low8|F_High8|F_Low8 ;|00||
 	jmp subtractNfromF	;|Com_High8|Com_Low8|N|F_High8|F_Low8 ;|00||
 	jmp subtractFfromF	;|Com_High8|Com_Low8|F_High8|F_Low8|F_High8|F_Low8 ;|00||
 
@@ -206,7 +206,7 @@
 
 // - sub functions - (unfinished)
 ;	jmp SetUpFunction ;ComHigh8|ComLow8
-;	jmp	CallFunction ;ComHigh8|ComLow8|AddressOfCode_High8|AddressOfCode_Low8
+;	jmp CallFunction  ;ComHigh8|ComLow8|AddressOfCode_High8|AddressOfCode_Low8
 
 ; --------------------------------------------------------------- ;
 // ----- startup commands ----- //
@@ -355,7 +355,7 @@ discover_carryOn:
 	mov R30, R24
 
 	// move 'program counter High8' and 'program counter Low8'
-	//	to equivalent the Z Registers for ijmp
+	//	to equivalent in the Z Registers for ijmp
 	ijmp 
 ; --------------------------------------------------------------- ;
 // ----- code blocks ----- //
