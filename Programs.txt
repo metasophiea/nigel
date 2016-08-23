@@ -1,0 +1,107 @@
+// ----- Auto Code Programs -----//
+	inc R31
+
+	ldi R16, 0x
+	st Z, R16
+	inc R30
+
+
+; -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -> Blink
+; turns all of PortB outputs on and off with a delay of a millisecond	
+	
+	//auto program
+	inc R31
+
+//set portB direction to FF
+	ldi R16, 0x00
+	st Z, R16
+	inc R30
+	ldi R16, 0x42
+	st Z, R16
+	inc R30
+	ldi R16, 0x00
+	st Z, R16
+	inc R30
+	ldi R16, 0xff
+	st Z, R16
+	inc R30
+
+//set portB output FF
+	ldi R16, 0x00
+	st Z, R16
+	inc R30
+	ldi R16, 0x44
+	st Z, R16
+	inc R30
+	ldi R16, 0x00
+	st Z, R16
+	inc R30
+	ldi R16, 0xff
+	st Z, R16
+	inc R30
+
+//delay for 1 millisecond
+	ldi R16, 0x00
+	st Z, R16
+	inc R30
+	ldi R16, 0x40
+	st Z, R16
+	inc R30
+	ldi R16, 0x00
+	st Z, R16
+	inc R30
+	ldi R16, 0x00
+	st Z, R16
+	inc R30
+	ldi R16, 0x01
+	st Z, R16
+	inc R30
+
+//set portB output 00
+	ldi R16, 0x00
+	st Z, R16
+	inc R30
+	ldi R16, 0x44
+	st Z, R16
+	inc R30
+	ldi R16, 0x00
+	st Z, R16
+	inc R30
+	ldi R16, 0x00
+	st Z, R16
+	inc R30
+
+//delay for 1 millisecond
+	ldi R16, 0x00
+	st Z, R16
+	inc R30
+	ldi R16, 0x40
+	st Z, R16
+	inc R30
+	ldi R16, 0x00
+	st Z, R16
+	inc R30
+	ldi R16, 0x00
+	st Z, R16
+	inc R30
+	ldi R16, 0x01
+	st Z, R16
+	inc R30
+
+//goto code number 04
+	ldi R16, 0x00
+	st Z, R16
+	inc R30
+	ldi R16, 0x3a
+	st Z, R16
+	inc R30
+	ldi R16, 0x00
+	st Z, R16
+	inc R30
+	ldi R16, 0x04
+	st Z, R16
+	inc R30
+
+	clr R31
+	clr R30
+	clr R16

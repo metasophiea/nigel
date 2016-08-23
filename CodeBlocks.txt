@@ -1,0 +1,145 @@
+// ----- code blocks ----- //
+UPCTSTFI:
+;use program counter to select the first input
+	//get program counter value and place in Z
+	mov R30, R0
+	mov R31, R1
+	//add secret sause (0x0100)
+	inc R31
+	inc R30
+	inc R30
+	brcc UPCTSTFI_skip
+		inc R31
+UPCTSTFI_skip:
+ret
+
+STNI:
+;select the next input
+	//select file input 2
+	inc R30
+	brcc STNI_skip
+		inc R31
+STNI_skip:
+ret
+
+LYPWWZIPA:
+;load Y with what Z is pointing at
+	//load Y with input 1 file address
+	ld R29, Z+
+	ld R28, Z
+ret
+
+// - handy (but uncallable) code - //
+;adds 4 to the program counter and returnsto discover
+	//add 4 to program counter
+	sbr R25, 4
+	add R0, R25
+	jmp discover
+
+THTALFIAPR16ITL:
+// Test that there's a loaction for it, and places R18 in that location
+;select the next input
+	call STNI
+;load Y pointer with what Z is pointing at
+	call LYPWWZIPA
+	//test input 2 destination for Zero
+	// -> zero, then forget about putting the second value anywhere
+	// -> not zero, then place it wherever they want it to go
+	tst R29
+	breq THTALFIAPR16ITL_YHigh8wasZero
+	jmp THTALFIAPR16ITL_carryOn
+THTALFIAPR16ITL_YHigh8wasZero:
+	tst R28
+	breq DevideNbyF_dontDoHigh8Result
+THTALFIAPR16ITL_carryOn:
+	//
+	st Y, R16
+THTALFIAPR16ITL_dontDoHigh8Result:
+
+THTALFIAPR17ITL:
+// Test that there's a loaction for it, and places R18 in that location
+;select the next input
+	call STNI
+;load Y pointer with what Z is pointing at
+	call LYPWWZIPA
+	//test input 2 destination for Zero
+	// -> zero, then forget about putting the second value anywhere
+	// -> not zero, then place it wherever they want it to go
+	tst R29
+	breq THTALFIAPR17ITL_YHigh8wasZero
+	jmp THTALFIAPR17ITL_carryOn
+THTALFIAPR17ITL_YHigh8wasZero:
+	tst R28
+	breq THTALFIAPR17ITL_dontDoHigh8Result
+THTALFIAPR17ITL_carryOn_1:
+	//
+	st Y, R17
+THTALFIAPR17ITL_dontDoHigh8Result:
+
+THTALFIAPR18ITL:
+// Test that there's a loaction for it, and places R18 in that location
+;select the next input
+	call STNI
+;load Y pointer with what Z is pointing at
+	call LYPWWZIPA
+	//test input 2 destination for Zero
+	// -> zero, then forget about putting the second value anywhere
+	// -> not zero, then place it wherever they want it to go
+	tst R29
+	breq THTALFIAPR18ITL_YHigh8wasZero
+	jmp THTALFIAPR18ITL_carryOn
+THTALFIAPR18ITL_YHigh8wasZero:
+	tst R28
+	breq THTALFIAPR18ITL_dontDoHigh8Result
+THTALFIAPR18ITL_carryOn:
+	//
+	st Y, R18
+THTALFIAPR18ITL_dontDoHigh8Result:
+
+///////////////////////////////////////////////////////////////////////
+
+// Test that there's a loaction for it, and places R16 in that location
+	call THTALFIAPR16ITL
+
+// Test that there's a loaction for it, and places R17 in that location
+	call THTALFIAPR17ITL
+
+// Test that there's a loaction for it, and places R18 in that location
+	call THTALFIAPR18ITL
+
+// Test that there's a loaction for it, and places R19 in that location
+	call THTALFIAPR19ITL
+
+;use program counter to select the first input
+	call UPCTSTFI
+
+;select the next input
+	call STNI
+
+;load Y pointer with what Z is pointing at
+	call LYPWWZIPA
+
+//move value of input 1 into var 1 (R16)
+ld R16, Z
+
+//move value of input 1 file into var 1 (R16)
+ld R16, Y
+
+//put var 1 (R16) into Y
+st Y, R16
+
+// move file that Z points at, into R24 & R25
+ld R25, Z+
+ld R24, Z
+dec R30
+
+	//add 6 to program counter
+	sbr R25, 6
+	add R0, R25
+	jmp discover
+	;end
+
+;avoid page info
+	call AvoidPageInfo
+
+///////////////////////////////////////////////////////////////////////
