@@ -1,0 +1,48 @@
+PCICR – Pin Change Interrupt Control Register (0x68)
+	bit7: -unused-
+	bit6: -unused-
+	bit5: -unused-
+	bit4: -unused-
+	bit3: -unused-
+	bit2: Listen to PCMSK2 pins
+	bit1: Listen to PCMSK1 pins
+	bit0: Listen to PCMSK0 pins
+
+
+PCMSK0, PCMSK1 and PCMSK2 - For selecting which individual I/O pins to use
+	PCMSK2 (0x6D)
+		bit7: PCINT23	- Pin: 13	- D7
+		bit6: PCINT22	- Pin: 12	- D6
+		bit5: PCINT21	- Pin: 11	- D5
+		bit4: PCINT20	- Pin: 6	- D4
+		bit3: PCINT19	- Pin: 5	- D3
+		bit2: PCINT18	- Pin: 4	- D2
+		bit1: PCINT17	- Pin: 3	- D1
+		bit0: PCINT16	- Pin: 2	- D0
+	PCMSK1 (0x6C)
+		bit7: -unused-
+		bit6: PCINT14	- Pin: 1	- C6
+		bit5: PCINT13	- Pin: 28	- C5
+		bit4: PCINT12	- Pin: 27	- C4
+		bit3: PCINT11	- Pin: 26	- C3
+		bit2: PCINT10	- Pin: 25	- C2
+		bit1: PCINT9	- Pin: 24	- C1
+		bit0: PCINT8	- Pin: 23	- C0
+	PCMSK0 (0x6B)
+		bit7: PCINT7	- Pin: 10	- B7
+		bit6: PCINT6	- Pin: 9	- B6
+		bit5: PCINT5	- Pin: 19	- B5
+		bit4: PCINT4	- Pin: 18	- B4
+		bit3: PCINT3	- Pin: 17	- B3
+		bit2: PCINT2	- Pin: 16	- B2
+		bit1: PCINT1	- Pin: 15	- B1
+		bit0: PCINT0	- Pin: 14	- B0
+PCIFR – Pin Change Interrupt Flag Register (0x3B)
+	bit7: -unused-
+	bit6: -unused-
+	bit5: -unused-
+	bit4: -unused-
+	bit3: -unused-
+	bit2: Interrupts from PCMSK2 pins
+	bit1: Interrupts from PCMSK1 pins
+	bit0: Interrupts from PCMSK0 pins

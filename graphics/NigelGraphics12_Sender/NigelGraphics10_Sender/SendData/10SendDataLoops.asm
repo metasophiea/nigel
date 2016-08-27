@@ -1,0 +1,10 @@
+ld R16, X+ out PortD, R16
+ld R16, X+ out PortD, R16
+ld R16, X+ out PortD, R16
+ld R16, X+ out PortD, R16
+ld R16, X+ out PortD, R16
+ld R16, X+ out PortD, R16
+ld R16, X+ out PortD, R16
+ld R16, X+ out PortD, R16
+ld R16, X+ out PortD, R16
+ld R16, X+ out PortD, R16

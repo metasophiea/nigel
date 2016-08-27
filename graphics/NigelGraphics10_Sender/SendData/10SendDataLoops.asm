@@ -1,0 +1,10 @@
+ld R16, X+ sts 0x004E, R16
+ld R16, X+ sts 0x004E, R16
+ld R16, X+ sts 0x004E, R16
+ld R16, X+ sts 0x004E, R16
+ld R16, X+ sts 0x004E, R16
+ld R16, X+ sts 0x004E, R16
+ld R16, X+ sts 0x004E, R16
+ld R16, X+ sts 0x004E, R16
+ld R16, X+ sts 0x004E, R16
+ld R16, X+ sts 0x004E, R16

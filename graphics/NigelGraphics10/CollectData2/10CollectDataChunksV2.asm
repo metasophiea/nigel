@@ -1,0 +1,10 @@
+in FreshDataLandingArea, PinD 	st Z+, FreshDataLandingArea
+in FreshDataLandingArea, PinD 	st Z+, FreshDataLandingArea
+in FreshDataLandingArea, PinD 	st Z+, FreshDataLandingArea
+in FreshDataLandingArea, PinD 	st Z+, FreshDataLandingArea
+in FreshDataLandingArea, PinD 	st Z+, FreshDataLandingArea
+in FreshDataLandingArea, PinD 	st Z+, FreshDataLandingArea
+in FreshDataLandingArea, PinD 	st Z+, FreshDataLandingArea
+in FreshDataLandingArea, PinD 	st Z+, FreshDataLandingArea
+in FreshDataLandingArea, PinD 	st Z+, FreshDataLandingArea
+in FreshDataLandingArea, PinD 	st Z+, FreshDataLandingArea

@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{18226A42-8477-4023-8AD2-40C49DA407C9}") = "NigelGraphics14", "NigelGraphics10\NigelGraphics14.asmproj", "{66B4291A-DAD3-4944-A490-97B5123D5A42}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{66B4291A-DAD3-4944-A490-97B5123D5A42}.Debug|AVR.ActiveCfg = Debug|AVR
+		{66B4291A-DAD3-4944-A490-97B5123D5A42}.Debug|AVR.Build.0 = Debug|AVR
+		{66B4291A-DAD3-4944-A490-97B5123D5A42}.Release|AVR.ActiveCfg = Release|AVR
+		{66B4291A-DAD3-4944-A490-97B5123D5A42}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,98 @@
+QuickLaunch 
+	SetUp as Master
+		ldi R16, 0b11010000 sts 0x004C, R16
+	SetUp as Slave
+		ldi R16, 0b11000000 sts 0x004C, R16
+
+	Must wire up selection method, for grounding /SS pin on desired chip.
+
+	Send Data (Starts transfer)
+		sts 0x004E, R16
+	Read Data
+		lds R16, 0x004E
+
+
+	SPI_STC: ; SPI Transfer Complete Handler (for both Master and Slave)
+	ret
+
+Why not double speed?
+ Apparently, the slave reciever is only guaranteed to work at /4 speed
+
+////////////////////////////////////////////////
+SPCR – SPI Control Register (0x004C)
+
+7: SPIE: SPI Interrupt Enable
+	This bit causes the SPI interrupt to be executed if 
+	SPIF bit in the SPSR Register is set and the if the 
+	Global Interrupt Enable bit in SREG is set
+6:SPE: SPI Enable
+	When the SPE bit is written to one, the SPI is enabled. 
+	This bit must be set to enable any SPI operations.
+5:DORD: Data Order
+	When the DORD bit is written to one, the LSB of the data word is transmitted first. 
+	When the DORD bit is written to zero, the MSB of the data word is transmitted first.
+4:MSTR: Master/Slave Select
+	This bit selects Master SPI mode when written to one, 
+	and Slave SPI mode when written logic zero. 
+	If SS is configured as an input and is driven low while MSTR is set, 
+	MSTR will be cleared, and SPIF in SPSR will become set. 
+	The user will then have to set MSTR to re-enable SPI Master mode.
+3:CPOL: Clock Polarity
+	When this bit is written to one, SCK is high when idle. 
+	When CPOL is written to zero, SCK is low when idle. 
+	The CPOL functionality is summarized below:
+		CPOL	LeadingEdge	TrailingEdge
+		0	  Rising	  Falling
+		1	  Rising 	  Falling
+2:CPHA: Clock Phase
+	The settings of the Clock Phase bit (CPHA) determine if 
+	data is sampled on the leading (first) or trailing (last) edge of SCK.
+	The CPHA functionality is summarized below:
+		CPHA	LeadingEdge	TrailingEdge
+		 0		 Sample		  Setup
+		 1		 Setup		  Sample
+1&0: SPR1, SPR0: SPI Clock Rate Select 1 and 0
+	These two bits control the SCK rate of the device configured as a Master. 
+	SPR1 and SPR0 have no effect on the Slave. 
+	The relationship between SCK and the Oscillator Clock frequency 
+	F_osc is shown in the following table: 
+		SPI2X	SPR1	SPR0	SCKFrequency
+		0		0		0	  F_osc/4
+		0		0		1	  F_osc/16
+		0		1		0	  F_osc/64
+		0		1		1	  F_osc/128
+		1		0		0	  F_osc/2
+		1		0		1	  F_osc/8
+		1		1		0	  F_osc/32
+		1		1		1	  F_osc/64
+
+////////////////////////////////////////////////
+SPSR – SPI Status Register (0x004D)
+
+7:  SPIF: SPI Interrupt Flag
+	When a serial transfer is complete, the SPIF Flag is set. 
+	An interrupt is generated if SPIE in SPCR is set and global interrupts are enabled. 
+	If SS is an input and is driven low when the SPI is in Master mode, 
+		this will also set the SPIF Flag. 
+	SPIF is cleared by hardware when executing the corresponding interrupt handling vector. 
+	Alternatively, the SPIF bit is cleared by first reading the SPI Status Register 
+		with SPIF set, then accessing the SPI Data Register (SPDR).
+6: WCOL: Write COLlision Flag
+	The WCOL bit is set if the SPI Data Register (SPDR) is written 
+		during a data transfer. 
+	The WCOL bit (and the SPIF bit) are cleared by first reading the 
+	SPI Status Register with WCOL set, and then accessing the SPI Data Register.
+5-1: unused
+0: SPI2X: Double SPI Speed Bit
+	When this bit is written logic one the SPI speed (SCK Frequency) 
+		will be doubled when the SPI is in Master mode. 
+	This means that the minimum SCK period will be two CPU clock periods. 
+	When the SPI is configured as Slave, the SPI is only guaranteed to work 
+		at F_osc/4 or lower.
+
+////////////////////////////////////////////////
+SPDR – SPI Data Register (0x004E)
+	The SPI Data Register is a read/write register used for data transfer 
+		between the Register File and the SPI Shift Register. 
+	Writing to the register initiates data transmission. 
+	Reading the register causes the Shift Register Receive buffer to be read
